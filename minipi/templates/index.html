@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>감정분석 웹</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-image: url("/static/robo.png"); /* 배경 이미지 URL을 여기에 넣으세요 */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+
+      h1 {
+        margin-top: 20px;
+      }
+
+      #startButton {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      #startButton:hover {
+        background-color: #0056b3;
+      }
+
+      #result {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>감정분석 웹</h1>
+    <button id="startButton">음성인식 시작</button>
+    <div id="result"></div>
+
+    <script>
+      const startButton = document.getElementById("startButton");
+      const resultDiv = document.getElementById("result");
+
+      startButton.addEventListener("click", async () => {
+        resultDiv.textContent = "음성인식 중...";
+        const response = await fetch("/start_recognition", { method: "POST" });
+        const text = await response.text();
+        resultDiv.textContent = text;
+      });
+    </script>
+  </body>
+</html>
